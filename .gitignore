@@ -21,13 +21,9 @@ ExportedObj/
 
 # Unity3D generated meta files
 *.pidb.meta
-*.meta
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
 # Builds
 *.apk
 *.unitypackage
-LudumDare41/Assets/TextMesh Pro/Plugins/
-LudumDare41/.collabignore
-Library/metadata/00/00000000000000001000000000000000
