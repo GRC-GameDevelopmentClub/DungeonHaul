@@ -15,6 +15,7 @@ public class EnemyMain : MonoBehaviour {
     //reward
     [Header("Rewards")]
     public int gold;
+    public int Exp;
 
     //states
     [Header("States")]
