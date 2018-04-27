@@ -1,0 +1,10 @@
+Here is a list of information that's not directly in the 'system' but need to be constant.
+
+Inside the main game view (the shoot 'em up areas) the max play space for the enemies/player is
+X AXIS: -4 through 4. 8 units total.
+Y AXIS: -5 through 5. 10 units total
+
+Although keep in mind the player area is 2 units at the bottom. So only place enemies 5 through -3 on the Y AXIS
+to prevent unintentional player collision with the enemy and vice/versa. 
+
+The rest of the screen is reserved for the HUD.
