@@ -188,6 +188,11 @@ Prefab:
       value: 
       objectReference: {fileID: 11500000, guid: d690de583b9e6fa40ab2df40b4190016,
         type: 3}
+    - target: {fileID: 114584773974724938, guid: 0ff7c37f145a72b419b282c4bf2b58ac,
+        type: 2}
+      propertyPath: Exp
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ff7c37f145a72b419b282c4bf2b58ac, type: 2}
   m_IsPrefabParent: 0
@@ -787,7 +792,6 @@ MonoBehaviour:
   movementEnabled: 1
   attackingEnabled: 1
   activeState: 0
-  EXp: 0
   atk: 0
   def: 0
   lvl: 0

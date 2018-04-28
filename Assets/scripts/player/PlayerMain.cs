@@ -15,6 +15,7 @@ public class PlayerMain : MonoBehaviour {
     bool shoot;
     bool spell00;
     bool spell01;
+    bool spell02;
     bool pause;
 
     //Components
@@ -32,11 +33,11 @@ public class PlayerMain : MonoBehaviour {
     int maxHP;
     int maxMP;
     //..
-    public int EXp;
+    public static int Exp;
     public byte atk;
     public byte def;
     public byte lvl;
-    public  int gold;
+    public static int gold;
 
     //spell slots
     public GameObject sp_basic;
@@ -103,7 +104,7 @@ public class PlayerMain : MonoBehaviour {
 
         shoot = Input.GetKey(KeyCode.Space);
 
-
+        Debug.Log(Exp);
         //gamepad (to be added later)
 
     }

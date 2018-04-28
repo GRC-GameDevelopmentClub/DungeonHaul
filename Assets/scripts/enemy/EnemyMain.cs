@@ -31,6 +31,8 @@ public class EnemyMain : MonoBehaviour {
     {
         if (curHP <= 0)
         {
+            PlayerMain.Exp += Exp;
+            PlayerMain.gold += gold;
             Destroy(this.gameObject);
         }
     }
