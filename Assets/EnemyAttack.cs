@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿/*Copyright (c) Hunter Ahlquist
+ *http://hunterahlquist.com/
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DungeonHaul.states;
 using DungeonHaul.Stats;
 
-public class PlayerAttack : MonoBehaviour {
+public class EnemyAttack : MonoBehaviour {
+
     //attack properties
     public int baseDamage;
     int totalDamage;
@@ -12,15 +17,16 @@ public class PlayerAttack : MonoBehaviour {
     public AttackStates attackState;
     public decimal inflictChance;
 
-    GameObject Player;
+    GameObject Enemy;
     GameObject self;
     public GameObject emit;
 
     private void Start()
     {
         self = this.gameObject;
-        Player = GameObject.Find("theWiz");
-        totalDamage = baseDamage * Player.GetComponent<PlayerMain>().atk;
+        Enemy = this.transform.parent.gameObject;
+        this.transform.SetParent(null);
+        totalDamage = baseDamage * Enemy.GetComponent<EnemyMain>().atk;
         emit = GameObject.Find("particles");
         emit.gameObject.name = "magic";
     }
@@ -28,7 +34,7 @@ public class PlayerAttack : MonoBehaviour {
     private void FixedUpdate()
     {
         self.transform.position += transform.up * projSpeed;
-        Debug.Log(transform.forward);
+        //Debug.Log(transform.forward);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,13 +44,15 @@ public class PlayerAttack : MonoBehaviour {
         {
             //Debug.Log("killzone");
             emit.transform.SetParent(null);
+            emit.transform.SetParent(null);
             DetachParticles();
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
             //Debug.Log("enemy");
-            Damage.InflictDamage(collision.gameObject, baseDamage, false, attackState);
+            Damage.InflictDamage(collision.gameObject, baseDamage, true, attackState);
+            emit.transform.SetParent(null);
             emit.transform.SetParent(null);
             DetachParticles();
             Destroy(this.gameObject);
@@ -53,14 +61,15 @@ public class PlayerAttack : MonoBehaviour {
     public void DetachParticles()
     {
         // This splits the particle off so it doesn't get deleted with the parent
-        
+
 
         // this stops the particle from creating more bits
         ParticleSystem.EmissionModule em = emit.GetComponent<ParticleSystem>().emission;
         em.enabled = false;
 
         if (emit.GetComponent<ParticleSystem>().particleCount == 0)
-            Destroy(emit.gameObject); 
+            Destroy(emit.gameObject);
 
     }
+
 }
