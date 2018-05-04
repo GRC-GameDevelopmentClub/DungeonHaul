@@ -9,6 +9,8 @@ public class PlayerMain : MonoBehaviour {
     bool pauseActive;
     public bool attackingEnabled;
 
+    public bool gameOver;
+
     //Input variables
     bool moveLeft;
     bool moveRight;
@@ -104,7 +106,19 @@ public class PlayerMain : MonoBehaviour {
 
         shoot = Input.GetKey(KeyCode.Space);
 
-        Debug.Log(Exp);
+        //detect game over
+        if (curHP <= 0)
+            gameOver = true;
+        else
+            gameOver = false;
+
+        //commands to be run on game over
+        if (gameOver)
+        {
+            movementEnabled = false;
+            attackingEnabled = false;
+            Time.timeScale = 0;
+        }
         //gamepad (to be added later)
 
     }
