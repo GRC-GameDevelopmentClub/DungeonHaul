@@ -27,8 +27,8 @@ public class PlayerAttack : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        self.transform.position += new Vector3(0,1) * projSpeed;
-        //Debug.Log("updating...");
+        self.transform.position += transform.up * projSpeed;
+        Debug.Log(transform.forward);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
