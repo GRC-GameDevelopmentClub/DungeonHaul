@@ -19,16 +19,15 @@ public class EnemyAttack : MonoBehaviour {
 
     GameObject Enemy;
     GameObject self;
-    public GameObject emit;
 
     private void Start()
     {
+        transform.localPosition = new Vector3(0, 0, 0);
+        Enemy = this.transform.root.gameObject;
         self = this.gameObject;
-        Enemy = this.transform.parent.gameObject;
         this.transform.SetParent(null);
+        Debug.Log("EnemyAttack." + Enemy.name);
         totalDamage = baseDamage * Enemy.GetComponent<EnemyMain>().atk;
-        emit = GameObject.Find("particles");
-        emit.gameObject.name = "magic";
     }
 
     private void FixedUpdate()
@@ -43,33 +42,14 @@ public class EnemyAttack : MonoBehaviour {
         if (collision.gameObject.tag == "projKillZone")
         {
             //Debug.Log("killzone");
-            emit.transform.SetParent(null);
-            emit.transform.SetParent(null);
-            DetachParticles();
             Destroy(this.gameObject);
         }
         if (collision.gameObject.tag == "Player")
         {
             //Debug.Log("enemy");
             Damage.InflictDamage(collision.gameObject, baseDamage, true, attackState);
-            emit.transform.SetParent(null);
-            emit.transform.SetParent(null);
-            DetachParticles();
             Destroy(this.gameObject);
         }
     }
-    public void DetachParticles()
-    {
-        // This splits the particle off so it doesn't get deleted with the parent
+ }
 
-
-        // this stops the particle from creating more bits
-        ParticleSystem.EmissionModule em = emit.GetComponent<ParticleSystem>().emission;
-        em.enabled = false;
-
-        if (emit.GetComponent<ParticleSystem>().particleCount == 0)
-            Destroy(emit.gameObject);
-
-    }
-
-}
