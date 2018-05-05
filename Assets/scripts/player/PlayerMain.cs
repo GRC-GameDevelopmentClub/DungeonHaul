@@ -24,7 +24,6 @@ public class PlayerMain : MonoBehaviour {
 
     //Components
     GameObject player;
-    GameObject playerView;
     GameObject projSpawn;
 
     //States
@@ -67,19 +66,16 @@ public class PlayerMain : MonoBehaviour {
 
     //UI
     GameObject HPBar;
-    GameObject HPBar_fill;
 
     private void Start()
     {
         //define components
         player = this.gameObject;
-        playerView = GameObject.Find("player_view");
         projSpawn = GameObject.Find("projSpawn");
         apBar = projRate;
         statesTimer = statesTimerMax;
 
         HPBar = transform.parent.transform.Find("PlayerUI").transform.Find("HPBar").gameObject;
-        HPBar_fill = HPBar.transform.Find("Fill Area").transform.Find("Fill").gameObject;
     }
 
     private void FixedUpdate()
@@ -88,7 +84,7 @@ public class PlayerMain : MonoBehaviour {
         {
             if (shoot && !attacked)
             {
-                GameObject proj = Instantiate(sp_basic, projSpawn.transform.position, projSpawn.transform.rotation);
+                Instantiate(sp_basic, projSpawn.transform.position, projSpawn.transform.rotation);
                 attacked = true;
             }
             CoolDownStep();
