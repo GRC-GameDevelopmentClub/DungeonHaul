@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f61b79d98e84e4419f455ca215f78f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
+  baseDamage: 2
   projSpeed: 0.3
   attackState: 0
 --- !u!114 &114113361373150376
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f61b79d98e84e4419f455ca215f78f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
+  baseDamage: 2
   projSpeed: 0.3
   attackState: 0
 --- !u!114 &114260696171817254
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f61b79d98e84e4419f455ca215f78f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
+  baseDamage: 2
   projSpeed: 0.3
   attackState: 0
 --- !u!114 &114901108293821146

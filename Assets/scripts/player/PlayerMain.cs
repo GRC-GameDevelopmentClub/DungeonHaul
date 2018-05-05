@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DungeonHaul.states;
+using UnityEngine.UI;
+
 
 public class PlayerMain : MonoBehaviour {
     //Gameplay states
@@ -27,13 +29,15 @@ public class PlayerMain : MonoBehaviour {
 
     //States
     public AttackStates activeState;
-    
+    float statesTimer;
+    bool startState;
+    public float statesTimerMax;
+
     //positive
-    bool iFramed;
 
     //Stats - overall
-    int maxHP;
-    int maxMP;
+    public int maxHP;
+    public int maxMP;
     //..
     public static int Exp;
     public byte atk;
@@ -61,6 +65,10 @@ public class PlayerMain : MonoBehaviour {
     bool unlockedSpell00;
     bool unlockedSpell01;
 
+    //UI
+    GameObject HPBar;
+    GameObject HPBar_fill;
+
     private void Start()
     {
         //define components
@@ -68,6 +76,10 @@ public class PlayerMain : MonoBehaviour {
         playerView = GameObject.Find("player_view");
         projSpawn = GameObject.Find("projSpawn");
         apBar = projRate;
+        statesTimer = statesTimerMax;
+
+        HPBar = transform.parent.transform.Find("PlayerUI").transform.Find("HPBar").gameObject;
+        HPBar_fill = HPBar.transform.Find("Fill Area").transform.Find("Fill").gameObject;
     }
 
     private void FixedUpdate()
@@ -94,11 +106,28 @@ public class PlayerMain : MonoBehaviour {
                 player.transform.position += new Vector3(1f, 0) * (movementSpeed);
             }
         }
+        if (activeState != AttackStates.none)
+        {
+            StateTimerStep();
+        }
+        //player states
+        //..poison
+        if (activeState == AttackStates.poison && startState)
+        {
+            States.PoisionDamage(gameObject, maxHP);
+            startState = false;
+            statesTimer = statesTimerMax;
+        } if (curHP <= maxHP / 4)
+        {
+            activeState = AttackStates.none;
+        }
 
+            
         
     }
     private void Update()
     {
+        HPBar.GetComponent<Slider>().value = curHP;
         //get input states
         //keyboard
         moveRight = Input.GetKey(KeyCode.RightArrow);
@@ -134,6 +163,17 @@ public class PlayerMain : MonoBehaviour {
                 apBar = projRate;
                 attacked = false;
             }
+        }
+    }
+
+    void StateTimerStep()
+    {
+        if (statesTimer <= 0)
+        {
+            startState = true;
+        } else
+        {
+            statesTimer -= 0.1f;
         }
     }
 

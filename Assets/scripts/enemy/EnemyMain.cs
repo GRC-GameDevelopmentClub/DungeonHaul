@@ -8,8 +8,8 @@ public class EnemyMain : MonoBehaviour {
     [Header("Main Stats")]
     public byte atk;
     public byte def;
-    public float maxHP;
-    public float curHP = 1;
+    public int maxHP;
+    public int curHP = 1;
     public float speed;
 
     //reward
@@ -19,7 +19,10 @@ public class EnemyMain : MonoBehaviour {
 
     //states
     [Header("States")]
-    public AttackStates curState;
+    public AttackStates activeState;
+    float statesTimer;
+    bool startState;
+    public float statesTimerMax;
 
     //ability time
     float apTime;
@@ -41,6 +44,7 @@ public class EnemyMain : MonoBehaviour {
         curHP = maxHP;
         apTime = 30 / speed;
         curAPTime = apTime;
+        statesTimer = statesTimerMax;
     }
 
     private void FixedUpdate()
@@ -59,7 +63,7 @@ public class EnemyMain : MonoBehaviour {
             curAPTime -= 0.1f;
         } else
         { //perform ability
-            Debug.Log(this.gameObject.name + " Attacked.");
+            //Debug.Log(this.gameObject.name + " Attacked.");
 
             if (maxAttack != 0)
             {
@@ -67,6 +71,35 @@ public class EnemyMain : MonoBehaviour {
             }
 
             curAPTime = apTime;
+        }
+
+        if (activeState != AttackStates.none)
+        {
+            StateTimerStep();
+        }
+        //player states
+        //..poison
+        if (activeState == AttackStates.poison && startState)
+        {
+            States.PoisionDamage(gameObject, maxHP);
+            startState = false;
+            statesTimer = statesTimerMax;
+        }
+        if (curHP <= maxHP / 4)
+        {
+            activeState = AttackStates.none;
+        }
+
+    }
+    void StateTimerStep()
+    {
+        if (statesTimer <= 0)
+        {
+            startState = true;
+        }
+        else
+        {
+            statesTimer -= 0.1f;
         }
     }
 }
