@@ -12,7 +12,6 @@ public class EnemyAttack : MonoBehaviour {
 
     //attack properties
     public int baseDamage;
-    int totalDamage;
     public float projSpeed;
     public AttackStates attackState;
     public decimal inflictChance;
@@ -26,8 +25,7 @@ public class EnemyAttack : MonoBehaviour {
         Enemy = this.transform.root.gameObject;
         self = this.gameObject;
         this.transform.SetParent(null);
-        Debug.Log("EnemyAttack." + Enemy.name);
-        totalDamage = baseDamage * Enemy.GetComponent<EnemyMain>().atk;
+        //Debug.Log("EnemyAttack." + Enemy.name);
     }
 
     private void FixedUpdate()
@@ -47,7 +45,7 @@ public class EnemyAttack : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             //Debug.Log("enemy");
-            Damage.InflictDamage(collision.gameObject, baseDamage, true, attackState);
+            Damage.InflictDamage(collision.gameObject, baseDamage * (Enemy.GetComponent<EnemyMain>().atk - collision.GetComponent<PlayerMain>().def), true, attackState);
             Destroy(this.gameObject);
         }
     }

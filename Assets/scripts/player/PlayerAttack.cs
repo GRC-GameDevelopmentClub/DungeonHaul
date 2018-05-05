@@ -7,7 +7,6 @@ using DungeonHaul.Stats;
 public class PlayerAttack : MonoBehaviour {
     //attack properties
     public int baseDamage;
-    int totalDamage;
     public float projSpeed;
     public AttackStates attackState;
     public decimal inflictChance;
@@ -20,7 +19,6 @@ public class PlayerAttack : MonoBehaviour {
     {
         self = this.gameObject;
         Player = GameObject.Find("theWiz");
-        totalDamage = baseDamage * Player.GetComponent<PlayerMain>().atk;
         emit = GameObject.Find("particles");
         emit.gameObject.name = "magic";
     }
@@ -28,7 +26,7 @@ public class PlayerAttack : MonoBehaviour {
     private void FixedUpdate()
     {
         self.transform.position += transform.up * projSpeed;
-        Debug.Log(transform.forward);
+        //Debug.Log(transform.forward);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,8 +42,9 @@ public class PlayerAttack : MonoBehaviour {
         if (collision.gameObject.tag == "Enemy")
         {
             //Debug.Log("enemy");
-            Damage.InflictDamage(collision.gameObject, baseDamage, false, attackState);
+            Damage.InflictDamage(collision.gameObject, baseDamage * (Player.GetComponent<PlayerMain>().atk - collision.GetComponent<EnemyMain>().def), false, attackState);
             emit.transform.SetParent(null);
+            
             DetachParticles();
             Destroy(this.gameObject);
         }
