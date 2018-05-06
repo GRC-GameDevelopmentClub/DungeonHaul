@@ -44,7 +44,7 @@ public class PlayerAttack : MonoBehaviour {
             //Debug.Log("enemy");
             Damage.InflictDamage(collision.gameObject, baseDamage * (Player.GetComponent<PlayerMain>().atk - collision.GetComponent<EnemyMain>().def), false, attackState);
             emit.transform.SetParent(null);
-            
+            collision.gameObject.transform.Find("EnemyUI").transform.Find("HPBar").GetComponent<UIHpBarEnemy>().ShowEnemyHPBar();
             DetachParticles();
             Destroy(this.gameObject);
         }

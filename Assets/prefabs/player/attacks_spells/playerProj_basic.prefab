@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 5
   projSpeed: 0.25
-  attackState: 0
+  attackState: 1
   emit: {fileID: 0}
 --- !u!198 &198675908542377188
 ParticleSystem:

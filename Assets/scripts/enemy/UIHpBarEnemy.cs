@@ -11,6 +11,7 @@ public class UIHpBarEnemy : MonoBehaviour {
     float curHP;
     float maxHP;
     Slider sliderHP;
+    public float maxShowHPTime;
 
     public bool showingHP;
     public float showHPTime;
@@ -21,9 +22,8 @@ public class UIHpBarEnemy : MonoBehaviour {
         canvas = this.transform.parent.gameObject;
         sliderHP = this.GetComponent<Slider>();
         canvas.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        //this.gameObject.SetActive(false);
-        showHPTime = 100;
-        //sliderHP.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        this.gameObject.SetActive(false);
+        showHPTime = maxShowHPTime;
     }
 
     // Update is called once per frame
@@ -38,20 +38,23 @@ public class UIHpBarEnemy : MonoBehaviour {
     {
         if (showingHP)
         {
-            if (showHPTime <= 0)
+            if (showHPTime >= 0)
             {
+                
                 showHPTime -= 0.1f;
             } else
             {
                 showingHP = false;
-                showHPTime = 100;
+                showHPTime = maxShowHPTime;
+                gameObject.SetActive(false);
             }
         }
     }
     
     public void ShowEnemyHPBar()
     {
-        this.gameObject.SetActive(true);
+        showHPTime = maxShowHPTime;
+        gameObject.SetActive(true);
         showingHP = true;
     }
 }
