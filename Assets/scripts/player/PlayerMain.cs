@@ -17,9 +17,9 @@ public class PlayerMain : MonoBehaviour {
     bool moveLeft;
     bool moveRight;
     bool shoot;
-    bool spell00;
-    bool spell01;
-    bool spell02;
+    bool spell0;
+    bool spell1;
+    bool spell2;
     bool pause;
 
     //Components
@@ -46,8 +46,10 @@ public class PlayerMain : MonoBehaviour {
 
     //spell slots
     public GameObject sp_basic;
-    public GameObject sp_slot00;
-    public GameObject sp_slot01;
+
+    public Spells sp_slot0;
+    public Spells sp_slot1;
+    public Spells sp_slot2;
 
     //stats - current
     public int curHP;
@@ -66,6 +68,11 @@ public class PlayerMain : MonoBehaviour {
 
     //UI
     GameObject HPBar;
+    GameObject MPBar;
+    //..spell slots
+    Image spSl0_thumb;
+    Image spSl1_thumb;
+    Image spSl2_thumb;
 
     private void Start()
     {
@@ -76,6 +83,10 @@ public class PlayerMain : MonoBehaviour {
         statesTimer = statesTimerMax;
 
         HPBar = transform.parent.transform.Find("PlayerUI").transform.Find("HPBar").gameObject;
+        MPBar = transform.parent.transform.Find("PlayerUI").transform.Find("MPBar").gameObject;
+        spSl0_thumb = transform.parent.transform.Find("PlayerUI").transform.Find("A_Slot").transform.Find("Img_Spell").gameObject.GetComponent<Image>();
+        spSl1_thumb = transform.parent.transform.Find("PlayerUI").transform.Find("S_Slot").transform.Find("Img_Spell").gameObject.GetComponent<Image>();
+        spSl2_thumb = transform.parent.transform.Find("PlayerUI").transform.Find("D_Slot").transform.Find("Img_Spell").gameObject.GetComponent<Image>();
     }
 
     private void FixedUpdate()
@@ -118,18 +129,52 @@ public class PlayerMain : MonoBehaviour {
             activeState = AttackStates.none;
         }
 
-            
+        //update spell slots
+        //..UI
+        spSl0_thumb.sprite = sp_slot0.thumbnail;
+        spSl1_thumb.sprite = sp_slot1.thumbnail;
+        spSl2_thumb.sprite = sp_slot2.thumbnail;
+
+        //Cast spells
+        if (attackingEnabled)
+        {
+
+            if (spell0 && !attacked && sp_slot0.mPCost <= curMP) //1st (A) spell slot
+            {
+                curMP -= sp_slot0.mPCost;
+                Instantiate(sp_slot0.atkPref, projSpawn.transform.position, projSpawn.transform.rotation);
+                attacked = true;
+            }
+            if (spell1 && !attacked && sp_slot1.mPCost <= curMP) //2nd (S) spell slot
+            {
+                curMP -= sp_slot1.mPCost;
+                Instantiate(sp_slot1.atkPref, projSpawn.transform.position, projSpawn.transform.rotation);
+                attacked = true;
+            }
+            if (spell2 && !attacked && sp_slot2.mPCost <= curMP) //3rd (D) spell slot
+            {
+                curMP -= sp_slot2.mPCost;
+                Instantiate(sp_slot2.atkPref, projSpawn.transform.position, projSpawn.transform.rotation);
+                attacked = true;
+            }
+        }
         
+
     }
     private void Update()
     {
-        HPBar.GetComponent<Slider>().value = curHP;
+        HPBar.GetComponent<Slider>().value = (((float)curHP / (float)maxHP) * 100);
+        MPBar.GetComponent<Slider>().value = (((float)curMP / (float)maxMP) * 100);
         //get input states
-        //keyboard
+        //..keyboard
         moveRight = Input.GetKey(KeyCode.RightArrow);
         moveLeft = Input.GetKey(KeyCode.LeftArrow);
 
         shoot = Input.GetKey(KeyCode.Space);
+
+        spell0 = Input.GetKey(KeyCode.A);
+        spell1 = Input.GetKey(KeyCode.S);
+        spell2 = Input.GetKey(KeyCode.D);
 
         //detect game over
         if (curHP <= 0)
