@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DungeonHaul.states;
 
 public class UIHpBarEnemy : MonoBehaviour {
 
@@ -48,6 +49,10 @@ public class UIHpBarEnemy : MonoBehaviour {
                 showHPTime = maxShowHPTime;
                 gameObject.SetActive(false);
             }
+        }
+        if (enemy.GetComponent<EnemyMain>().activeState == AttackStates.poison)
+        {
+            ShowEnemyHPBar();
         }
     }
     

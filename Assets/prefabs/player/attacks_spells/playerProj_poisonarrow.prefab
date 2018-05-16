@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114520660251543946}
   - component: {fileID: 50471687399768498}
   m_Layer: 0
-  m_Name: playerProj_basic
+  m_Name: playerProj_poisonarrow
   m_TagString: playerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913113795042488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.319195, y: 0.2152803, z: -0.050567493}
+  m_LocalPosition: {x: -1.16, y: -2.69, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4965547447266434}
@@ -130,9 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90179beebdac8d645a3f34a19b3b6452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 5
-  projSpeed: 0.25
-  attackState: 0
+  baseDamage: 1
+  projSpeed: 0.15
+  attackState: 1
   emit: {fileID: 0}
 --- !u!198 &198675908542377188
 ParticleSystem:
@@ -320,7 +320,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6730253, g: 0.51362455, b: 0.6985294, a: 1}
+      maxColor: {r: 0.27630097, g: 0.4339623, b: 0.25996798, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4759,7 +4759,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 430f447fcfaf6c4459cc043726d55aff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d0cad32e8084eb4f8738c39a5a58f46, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

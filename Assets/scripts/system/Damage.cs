@@ -41,6 +41,13 @@ namespace DungeonHaul.Stats
                 if (damageToGive >= 0)
                 {
                     Mathf.Floor(target.GetComponent<EnemyMain>().curHP -= damageToGive);
+                    if (inflict == AttackStates.poison)
+                    {
+                        if (Random.Range(1, 100) >= 75)
+                        {
+                            target.GetComponent<EnemyMain>().activeState = AttackStates.poison;
+                        }
+                    }
                 } else
                 {
                     target.GetComponent<EnemyMain>().curHP -= 1;
