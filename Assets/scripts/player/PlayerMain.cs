@@ -198,7 +198,7 @@ public class PlayerMain : MonoBehaviour {
         {
             if (apBar > 0)
             {
-                apBar -= (projRate / 32);
+                apBar -= (8 / projRate);
             } else
             {
                 apBar = projRate;
